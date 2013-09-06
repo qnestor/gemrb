@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GemRB</string>
+    <string name="fow_rbutton">Enable fog of war</string>
+    <string name="gamepath_verify_bad">The selected path appears to be incorrect/corrupt, please check the Instrctions section for details</string>
+    <string name="gamepath_verify_good">The selected path is OK. Remember to save changes</string>
+    <string name="gui_rbutton">Enable GUI enhancements</string>
+    <string name="fullscreen_rbutton">Enable fullscreen</string>
+    <string name="game_name">Title for game window:</string>
+    <string name="tooltip_delay">Tooltip delay:</string>
+    <string name="bpp">Bpp:</string>
+    <string name="height">Height</string>
+    <string name="width">Width</string>
+    <string name="action_settings">Settings..</string>
+    <string name="config_file_changed">Modified configuration file successfully..</string>
+    <string name="play_button">Play!</string>
+    <string name="wrong_configfile">Wrong config file structure!</string>
+    <string name="save_settings">Save</string>
+    <string name="instructions">Instructions</string>
+    <string name="activate_game">Activate Game</string>
+    <string name="configuration">Configuration</string>
+    <string name="feedback_bug">Report a bug / feedback</string>
+    <string name="credits">Authors..</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="back">Back</string>
+    <string name="verify">Verify gamepath</string>
+    <string name="game_dir">Set game directory</string>
+    <string name="game_type">Game set:</string>
+	<string name="no_gamepath">no gamepath set</string>
+	<string name="no_game">no game set</string>
+	<string name="no_explorer">You need to install one of the supported file explorers to browse files</string>
+	<string-array name="game_type">
+	    <item>bg1</item>
+	    <item>bg2</item>
+	    <item>iwd</item>
+	    <item>iwd2</item>
+	    <item>how</item>
+	    <item>pst</item>
+	</string-array>
+</resources>

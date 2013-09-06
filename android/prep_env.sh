@@ -121,8 +121,14 @@ function move_and_edit_projectfiles {
   echo -en "Copying and editing files..."
   mkdir -p "$ENVROOT/build/gemrb/src/net/sourceforge/gemrb/" &&
 
-  # copy the gemrb activity
-  cp "$ENVROOT/GemRB.java" "$ENVROOT/build/gemrb/src/net/sourceforge/gemrb/" &&
+  # copy all java and xml files including manifest 
+  #cp "$ENVROOT/GemRB.java" "$ENVROOT/build/gemrb/src/net/sourceforge/gemrb/" &&
+  #find "$GEMRB_GIT_PATH/" -name "\*.java" -exec cp {} "$ENVROOT/build/gemrb/src/net/sourceforge/gemrb/" \; &&
+  cp -R "$ENVROOT/src" "$ENVROOT/build/gemrb/"
+  cp "$ENVROOT/AndroidManifest.xml" "$ENVROOT/build/gemrb/" &&
+  cp -R "$ENVROOT/layout-large" "$ENVROOT/build/gemrb/res/" &&
+  cp -R "$ENVROOT/values" "$ENVROOT/build/gemrb/res/" &&
+  cp -R "$ENVROOT/drawable-hdpi" "$ENVROOT/build/gemrb/res/" &&
 
   # copy the packaged config file
   mkdir -p "$ENVROOT/build/gemrb/assets" &&
@@ -157,13 +163,13 @@ function move_and_edit_projectfiles {
   sed -i -e 's,//exit,exit,' "$ENVROOT/build/gemrb/jni/SDL/src/main/android/SDL_android_main.c" &&
 
   # change activity class and application name, as well as enable debuggable
-  sed -i -e s,org.libsdl.app,net.sourceforge.gemrb, "$ENVROOT/build/gemrb/AndroidManifest.xml" &&
-  sed -i -e s,SDLActivity,GemRB, "$ENVROOT/build/gemrb/AndroidManifest.xml" &&
-  sed -i -e '/GemRB.*/ a android:screenOrientation="landscape" android:configChanges="orientation"' "$ENVROOT/build/gemrb/AndroidManifest.xml" &&
+  #sed -i -e s,org.libsdl.app,net.sourceforge.gemrb, "$ENVROOT/build/gemrb/AndroidManifest.xml" &&
+  #sed -i -e s,SDLActivity,GemRB, "$ENVROOT/build/gemrb/AndroidManifest.xml" &&
+  #sed -i -e '/GemRB.*/ a android:screenOrientation="landscape" android:configChanges="orientation"' "$ENVROOT/build/gemrb/AndroidManifest.xml" &&
   sed -i -e s,android:versionName=.*,android:versionName=$GEMRB_VERSION, "$ENVROOT/build/gemrb/AndroidManifest.xml" &&
-  sed -i -e '21 a\
-                 android:debuggable="true"' "$ENVROOT/build/gemrb/AndroidManifest.xml" &&
-  sed -i -e s,SDL\ App,GemRB, build/gemrb/res/values/strings.xml &&
+  #sed -i -e '21 a\
+  #               android:debuggable="true"' "$ENVROOT/build/gemrb/AndroidManifest.xml" &&
+  #sed -i -e s,SDL\ App,GemRB, build/gemrb/res/values/strings.xml &&
 
   echo -en "Copying GemRB override, unhardcoded and GUIScripts folders..." &&
   mkdir -p "$ENVROOT/build/gemrb/assets" &&

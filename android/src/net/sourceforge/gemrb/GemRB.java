@@ -1,28 +1,24 @@
 package net.sourceforge.gemrb;
 
-import org.libsdl.app.SDLActivity;
-import android.os.Bundle;
-import android.util.Log;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.BufferedOutputStream;
-import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
-import android.content.res.AssetManager;
 import java.util.Enumeration;
-import java.util.zip.*;
-import java.util.Properties;
-import android.app.AlertDialog;
-import android.widget.EditText;
-import android.content.DialogInterface;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
+
+import org.libsdl.app.SDLActivity;
+
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 
 public class GemRB extends SDLActivity {
 
@@ -55,27 +51,7 @@ public class GemRB extends SDLActivity {
       Log.d("GemRB Activity", "GemRB.cfg doesn't exist in the expected location, creating it from the packaged template.");
 
       // String[] keysToChange = { "GUIScriptsPath", "GemRBOverridePath", "GemRBUnhardcodedPath" };
-      try {
-        File inConfFile = new File(gemrbHomeFolder.getAbsolutePath().concat(gemrbHomeFolder.separator).concat("packaged.GemRB.cfg"));
-        BufferedReader inConf = new BufferedReader(new FileReader(inConfFile));
-        File outConfFile = new File(gemrbHomeFolder.getAbsolutePath().concat(gemrbHomeFolder.separator).concat("new.GemRB.cfg"));
-        BufferedWriter outConf = new BufferedWriter(new FileWriter(outConfFile));
-
-        String line;
-
-        while((line = inConf.readLine()) != null) {
-          outConf.write(line.concat("\n"));
-          outConf.flush();
-        }
-        inConf.close();
-        outConf.flush();
-        outConf.close();
-
-        inConfFile.delete();
-        outConfFile.renameTo(finalConfFile);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
+      createCfgFromAsset(gemrbHomeFolder, finalConfFile);
     }
 
     super.onCreate(savedInstanceState);
@@ -89,7 +65,7 @@ public class GemRB extends SDLActivity {
       fileOrDirectory.delete();
   }
 
-  private static void extractFolder(String zipFile, String newPath) throws ZipException, IOException {
+  public static void extractFolder(String zipFile, String newPath) throws ZipException, IOException {
       int BUFFER = 1024 * 1024;
       File file = new File(zipFile);
 
@@ -137,5 +113,32 @@ public class GemRB extends SDLActivity {
     // we're only overriding for orientation change (cmp AndroidManifest.xml)
     // but we don't actually want to react to that
     super.onConfigurationChanged(newConfig);
+  }
+  
+  public static boolean createCfgFromAsset(File gemrbHomeFolder, File finalConfFile) {
+	  
+      try {
+          File inConfFile = new File(gemrbHomeFolder.getAbsolutePath().concat(gemrbHomeFolder.separator).concat("packaged.GemRB.cfg"));
+          BufferedReader inConf = new BufferedReader(new FileReader(inConfFile));
+          File outConfFile = new File(gemrbHomeFolder.getAbsolutePath().concat(gemrbHomeFolder.separator).concat("new.GemRB.cfg"));
+          BufferedWriter outConf = new BufferedWriter(new FileWriter(outConfFile));
+
+          String line;
+
+          while((line = inConf.readLine()) != null) {
+            outConf.write(line.concat("\n"));
+            outConf.flush();
+          }
+          inConf.close();
+          outConf.flush();
+          outConf.close();
+
+          inConfFile.delete();
+          outConfFile.renameTo(finalConfFile);
+          return true;
+        } catch (IOException e) {
+          //throw new RuntimeException(e);
+          return false;
+        }
   }
 }
