@@ -9,12 +9,16 @@ import java.util.Properties;
 import java.util.zip.ZipException;
 
 import net.sourceforge.gemrb.ActivateFragment.ActivateFragmenter;
+import net.sourceforge.gemrb.ActivateFragment.gameTypes;
 import net.sourceforge.gemrb.ConfigFragment.ConfigFragmenter;
 import net.sourceforge.gemrb.HomeFragment.HomeFragmenter;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
 public class Wrapper extends Activity implements 
 	HomeFragmenter, ActivateFragmenter, ConfigFragmenter {
@@ -269,5 +273,55 @@ public class Wrapper extends Activity implements
 	public void refresh() {
 		
 		readConfigFile();
+	}
+	
+	public void subUpdateRun(ImageView viewToUpdate, gameTypes gameType,String icoFilePrefix) {
+		
+		//If Activate fragment passes values (not null) use those
+		icoFilePrefix = (icoFilePrefix == null) ? getGamePath():icoFilePrefix;
+		gameType = (gameType == null) ? ActivateFragment.gameTypes.valueOf(getGameType()):gameType;
+		
+		FileInputStream fis;
+		File icoFile = null;
+		
+		try {	
+			
+			switch (gameType) {
+			
+			case iwd2:
+				icoFile = new File(icoFilePrefix.concat(File.separator).concat("gfw_high.ico"));
+				break;
+			case bg2:
+				icoFile = new File(icoFilePrefix.concat(File.separator).concat("baldur.ico"));
+				break;
+			case bg1:
+				icoFile = new File(icoFilePrefix.concat(File.separator).concat("gfw_high.ico"));
+				break;
+			case pst:
+				icoFile = new File(icoFilePrefix.concat(File.separator).concat("gfw_high.ico"));
+				break;
+			case how:
+				icoFile = new File(icoFilePrefix.concat(File.separator).concat("gfw_high.ico"));
+				break;
+			case iwd:
+				icoFile = new File(icoFilePrefix.concat(File.separator).concat("gfw_high.ico"));
+				break;
+			default:
+				break;
+			}
+			
+			if (icoFile != null) {
+				fis = new FileInputStream(icoFile);
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				Bitmap myBitmap = BitmapFactory.decodeStream(fis, null, options);  
+				viewToUpdate.setImageBitmap(myBitmap);
+			}
+			}
+			catch (FileNotFoundException noFile) {
+				/* if the ico file is not in the specified path maybe the game data is still ok. Set gemrb
+				 * icon and let the user try and run the game
+				 */
+				viewToUpdate.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
+			}
 	}
 }

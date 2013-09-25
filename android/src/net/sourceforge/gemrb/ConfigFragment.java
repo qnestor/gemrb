@@ -41,6 +41,7 @@ public class ConfigFragment extends Fragment{
 		public boolean getGUI();
 		public boolean getFOW();
 		public String getGameType();
+		public void subUpdateRun(ImageView viewToUpdate, gameTypes gameType,String icoFilePrefix);
 	}
 	
 	
@@ -178,30 +179,7 @@ public class ConfigFragment extends Fragment{
 		ImageView botIcon = (returnView == null) ? 
 				(ImageView)this.getView().findViewById(R.id.small_bot_image) :
 				(ImageView)returnView.findViewById(R.id.small_bot_image);
-		
-		switch (gameType) {
-		
-		case iwd2:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.iwd2ico));
-			break;
-		case bg2:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.bg2ico));
-			break;
-		case bg1:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.bgico));
-			break;
-		case pst:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.pstico));
-			break;
-		case how:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.howico));
-			break;
-		case iwd:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.iwdico));
-			break;
-		default:
-			break;
-		
-		}
+	
+		mCallback.subUpdateRun(botIcon,null,null);
 	}
 }

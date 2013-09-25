@@ -22,6 +22,7 @@ public class HomeFragment extends Fragment {
 		public void onActivateMenu();
 		public void onConfigMenu();
 		public String getGameType();
+		public void subUpdateRun(ImageView viewToUpdate, gameTypes gameType,String icoFilePrefix);
 	}
 	
 	@Override
@@ -49,7 +50,11 @@ public class HomeFragment extends Fragment {
 	@Override
 	public void onViewCreated(View returnView, Bundle savedInstanceState) {
 		
-		updateRunIcon(ActivateFragment.gameTypes.valueOf(mCallback.getGameType()),returnView);
+		ImageView botIcon = (returnView == null) ? 
+				(ImageView)this.getView().findViewById(R.id.small_bot_image) :
+				(ImageView)returnView.findViewById(R.id.small_bot_image);
+		//updateRunIcon(ActivateFragment.gameTypes.valueOf(mCallback.getGameType()),returnView);
+		mCallback.subUpdateRun(botIcon, null, null);
 	}
 	
     @Override
@@ -124,35 +129,4 @@ public class HomeFragment extends Fragment {
 		
 	};
 	
-	public void updateRunIcon(gameTypes gameType, View returnView) {
-		
-		ImageView botIcon = (returnView == null) ? 
-				(ImageView)this.getView().findViewById(R.id.small_bot_image) :
-				(ImageView)returnView.findViewById(R.id.small_bot_image);
-		
-		switch (gameType) {
-		
-		case iwd2:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.iwd2ico));
-			break;
-		case bg2:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.bg2ico));
-			break;
-		case bg1:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.bgico));
-			break;
-		case pst:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.pstico));
-			break;
-		case how:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.howico));
-			break;
-		case iwd:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.iwdico));
-			break;
-		default:
-			break;
-		
-		}
-	}
 }

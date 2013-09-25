@@ -65,6 +65,7 @@ public class ActivateFragment extends Fragment{
 		public File getConfFile();
 		public void refresh();
 		public String getGameName();
+		public void subUpdateRun(ImageView viewToUpdate, gameTypes gameType,String icoFilePrefix);
 	}
 	
 	@Override
@@ -297,30 +298,23 @@ public class ActivateFragment extends Fragment{
 		ImageView botIcon = (returnView == null) ? 
 				(ImageView)this.getView().findViewById(R.id.small_bot_image) :
 				(ImageView)returnView.findViewById(R.id.small_bot_image);
+		CharSequence icoFilePrefix = (returnView == null) ? 
+				((TextView)this.getView().findViewById(R.id.text_below_top_button)).getText() :
+				((TextView)returnView.findViewById(R.id.text_below_top_button)).getText(); 
 		
-		switch (gameType) {
+		mCallback.subUpdateRun(botIcon, gameType, icoFilePrefix.toString());
 		
-		case iwd2:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.iwd2ico));
-			break;
-		case bg2:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.bg2ico));
-			break;
-		case bg1:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.bgico));
-			break;
-		case pst:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.pstico));
-			break;
-		case how:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.howico));
-			break;
-		case iwd:
-			botIcon.setImageDrawable(getResources().getDrawable(R.drawable.iwdico));
-			break;
-		default:
-			break;
-		
-		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+

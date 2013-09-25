@@ -126,7 +126,6 @@ function move_and_edit_projectfiles {
   #find "$GEMRB_GIT_PATH/" -name "\*.java" -exec cp {} "$ENVROOT/build/gemrb/src/net/sourceforge/gemrb/" \; &&
   cp -R "$ENVROOT/src" "$ENVROOT/build/gemrb/"
   cp "$ENVROOT/AndroidManifest.xml" "$ENVROOT/build/gemrb/" &&
-  cp -R "$ENVROOT/layout-large" "$ENVROOT/build/gemrb/res/" &&
   cp -R "$ENVROOT/values" "$ENVROOT/build/gemrb/res/" &&
   cp -R "$ENVROOT/drawable-hdpi" "$ENVROOT/build/gemrb/res/" &&
 
